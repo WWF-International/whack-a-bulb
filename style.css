@@ -134,6 +134,19 @@ p.score{
     width:100%;
 }
 
+.button {
+	display: inline-block;
+	padding: 2px 14px;
+	vertical-align: middle;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-family: "WWF", sans-serif;
+	font-size: 32px;
+	border: none;
+	cursor: pointer; 
+	background: #40c8f4;
+	color: white; 
+}
 
 
 
