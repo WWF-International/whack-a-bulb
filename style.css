@@ -128,7 +128,7 @@ p.score{
     line-height:1em;
     margin-top:-0.5em;
     position:absolute;
-        top:50%;
+    top:50%;
     text-align:center;
     text-transform:uppercase;
     width:100%;
@@ -136,7 +136,7 @@ p.score{
 
 .button {
 	display: inline-block;
-	padding: 2px 14px;
+	padding: 5px 14px;
 	vertical-align: middle;
 	text-decoration: none;
 	text-transform: uppercase;
