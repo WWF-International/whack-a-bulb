@@ -72,7 +72,7 @@ body {
     font-weight:600;
     line-height:1em;
     position:absolute;
-        top:10%;
+    top:10%;
     text-transform:uppercase;
     width:100%;
 }
@@ -87,9 +87,9 @@ body {
 
 #gameover p {
 	font-family: 'Open Sans', sans-serif;
-	width: 100%; 
+	width: 90%; 
 	text-align: center;
-	
+	margin: 0 5%;
 }
 
 p.score{
@@ -98,8 +98,8 @@ p.score{
     font-weight: 600;
     line-height: 0.9em;
     position: absolute;
-        top: 0;
-        right: 0;
+    top: 0;
+    right: 0;
     text-align: center;
     text-transform: uppercase;
     width: 120px;
@@ -136,17 +136,28 @@ p.score{
 
 .button {
 	display: inline-block;
-	padding: 5px 14px;
+	padding: 5px 14px 10px;
 	vertical-align: middle;
 	text-decoration: none;
 	text-transform: uppercase;
 	font-family: "WWF", sans-serif;
-	font-size: 32px;
+	font-size: 28px;
 	border: none;
 	cursor: pointer; 
-	background: #40c8f4;
 	color: white; 
+	margin: 10px 5px;
 }
 
+.button:hover {
+	color: #007932;
+}
+
+.grn {
+	background: #8dc63f;
+}
+
+.blue {
+	background: #191649;
+}
 
 
