@@ -104,8 +104,10 @@ function handleClick(e){
       $('#clickspace').bind('touchstart',handleTouch);
 
       function handleTouch(touchEvent){
+        var touch;
+        console.log(touchEvent);
         touchEvent.preventDefault();
-        touch=touchEvent.changedTouches[0];
+        touch=touchEvent.originalEvent.changedTouches[0];
         handleClick(touch);
 
       }
