@@ -85,7 +85,7 @@ $(document).ready(function() {
 
     }
     
-      $('#clickspace').click(handleClick);
+
 
 function handleClick(e){
         if (gameOn === 0) {return false}
@@ -107,7 +107,7 @@ function handleClick(e){
       }
 
 
-      $('#clickspace').bind('touchstart',handleTouch);
+
 
       function handleTouch(touchEvent){
         var touch;
@@ -150,6 +150,10 @@ function handleClick(e){
     function finishgame(){
         clearTimeout(timeout);
         gameOn = 0;
+
+            $('#clickspace').unbind('click',handleClick);
+            $('#clickspace').unbind('touchstart',handleTouch);
+
         $("#gameover").show();
         calcprogres(117);
         $("#yourscore").empty().append("Your score: " + turnedOff);
@@ -158,6 +162,9 @@ function handleClick(e){
     
     function startgame() { 
             gameOn = 1;
+            $('#clickspace').click(handleClick);
+            $('#clickspace').bind('touchstart',handleTouch);
+
             $("#gameover").hide();
         
             numberOn = 0;
