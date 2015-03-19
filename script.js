@@ -175,7 +175,7 @@ function handleClick(e){
             $('#clickspace').bind('touchstart',handleTouch);
 
             $("#gameover").hide();
-        
+            level = 0;
             numberOn = 0;
             turnedOff = 0;
             period = 3000;
