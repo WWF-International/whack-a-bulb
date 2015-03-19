@@ -6,7 +6,10 @@ $(document).ready(function() {
     var gameOn = 0;
     var numberOn = 0;
     var turnedOff = 0;
-    var frequency = 3000;
+    var period = 3000;
+    var level =0;
+    var levels=[3000,2500,2500,2000,2000,1000,1000,1000,500,500,1000,1000,500,500,500,1000,500];
+
     var numbertoOn = 1;
     var i = 1;
     var totalSquares = 116;
@@ -36,9 +39,12 @@ $(document).ready(function() {
         var max = arrayOfSquares.length-1;
         var min = 0;
         var i = Math.floor((min + max)/2);
+        // if we haven't found the hit square after this many iterations we must have clicked dead space. 
+        var maxAttempts = (Math.log(arrayOfSquares.length)/Math.log(2)) + 5; 
         var result;
         var eventCoordinates={};
         var counter=0;
+
 
         eventCoordinates.x=clickEvent.pageX;
         eventCoordinates.y=clickEvent.pageY;
@@ -66,7 +72,7 @@ $(document).ready(function() {
         result = highLowOrHit(arrayOfSquares[i],offset,eventCoordinates);
         
         while (result !=='hit' && counter<20){
-            console.log('miss');
+
             if(result==='tooHigh'){
                 min = i;
             }else if(result==='tooLow'){
@@ -79,7 +85,6 @@ $(document).ready(function() {
         result = highLowOrHit(arrayOfSquares[i],offset,eventCoordinates);
         counter++;
         }
-        if (result !=='hit')console.log(max,min,i);
 
         return arrayOfSquares[i].ref
 
@@ -134,14 +139,18 @@ function handleClick(e){
         calcprogres(numberOn);
     }
     
+
+
     function runscript(){
         turnon( Math.floor(numbertoOn) );
         if(numbertoOn < 11){ numbertoOn += 0.55;}
         //console.log(numberOn);
         if( numberOn < totalSquares-8 ){
             //console.log("bing");
-            frequency -= 500;
-            timeout = setTimeout(runscript,frequency);
+            if (level < levels.length - 1){level++;}
+            period = levels[level];
+            console.log(level,period)
+            timeout = setTimeout(runscript,period);
         } else {
             finishgame();
         }
@@ -169,7 +178,7 @@ function handleClick(e){
         
             numberOn = 0;
             turnedOff = 0;
-            frequency = 3000;
+            period = 3000;
             numbertoOn = 1;
             i=1;
         
