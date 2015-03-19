@@ -38,13 +38,16 @@ $(document).ready(function() {
         var i = Math.floor((min + max)/2);
         var result;
         var eventCoordinates={};
+        var counter=0;
 
         eventCoordinates.x=clickEvent.pageX;
         eventCoordinates.y=clickEvent.pageY;
 
         
         function highLowOrHit(square,offset,eventCoordinates){
+            
             var squareBounds={};
+
             squareBounds.left = offset.left + square.left;
             squareBounds.right = squareBounds.left + square.width;
             squareBounds.top = offset.top + square.top;
@@ -62,7 +65,7 @@ $(document).ready(function() {
 
         result = highLowOrHit(arrayOfSquares[i],offset,eventCoordinates);
         
-        while (result !=='hit'){
+        while (result !=='hit' && counter<20){
             console.log('miss');
             if(result==='tooHigh'){
                 min = i;
@@ -72,9 +75,12 @@ $(document).ready(function() {
             } 
             i= Math.round(min + (max - min)/2);
             if (max === 1){i=0;}
+           // if ((max - min) === 1){i=max;}
         result = highLowOrHit(arrayOfSquares[i],offset,eventCoordinates);
+        counter++;
         }
-        console.log('hit')
+        if (result !=='hit')console.log(max,min,i);
+
         return arrayOfSquares[i].ref
 
     }
@@ -117,7 +123,7 @@ function handleClick(e){
     function turnon(howmany){
         i=0;
         if (typeof howmany !=='number'){howmany=0;}
-        while(i<howmany){
+        while(i<howmany&& $('.on').length<totalSquares){
             var whichone = Math.floor((Math.random() * totalSquares) + 1);
             if( $("#" + whichone).hasClass("on") ){} else{
                 $("#" + whichone).addClass('on');
