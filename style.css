@@ -166,5 +166,16 @@ p.score{
 	background: #40c8f4;
 }
 
+#instructions {
+    background:black;
+    background: rgba(0,0,0,0.7);
+    color:white;
+    display:block;
+    height:100%;
+    position:absolute;
+    width:100%;
+    z-index:2;
+    text-align: center
+}
 
 

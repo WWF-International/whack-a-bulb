@@ -124,7 +124,7 @@ function handleClick(e){
       }
     
     $("#start").click(function(){ startgame(); });
-    
+    $("#instructions").hide();
     function turnon(howmany){
         i=0;
         if (typeof howmany !=='number'){howmany=0;}
