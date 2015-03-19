@@ -124,7 +124,7 @@ function handleClick(e){
       }
     
     $("#start").click(function(){ startgame(); });
-    $("#instructions").hide();
+	
     function turnon(howmany){
         i=0;
         if (typeof howmany !=='number'){howmany=0;}
@@ -170,6 +170,7 @@ function handleClick(e){
     }
     
     function startgame() { 
+	    	$("#instructions").hide();
             gameOn = 1;
             $('#clickspace').click(handleClick);
             $('#clickspace').bind('touchstart',handleTouch);

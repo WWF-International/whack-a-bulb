@@ -66,7 +66,7 @@ body {
     text-align: center
 }
 
-#gameover h2 {
+#gameover h2, #instructions h2 {
     color:white;
     font-size:3em;
     font-weight:600;
@@ -77,13 +77,13 @@ body {
     width:100%;
 }
 
-#gameover p.scoretext {
+#gameover p.scoretext, {
     font-size:1.5em;
     margin-top:4.3em;
     margin-bottom: 1em;
 }
 
-#gameover p {
+#gameover p, #instructions p {
 	font-family: 'Open Sans', sans-serif;
 	width: 90%; 
 	text-align: center;
@@ -178,4 +178,12 @@ p.score{
     text-align: center
 }
 
+#instructions p {
+	margin-bottom: 20px;
+}
 
+#instructions p.introtext {
+    font-size:1.2em;
+    margin-top:7em;
+    margin-bottom: 1em;
+}
