@@ -8,14 +8,21 @@ $(document).ready(function() {
     var turnedOff = 0;
     var period = 3000;
     var level =0;
-    var levels=[3000,2500,2500,2000,2000,1000,1000,1000,500,500,1000,1000,500,500,500,1000,500];
-
+    var levels = [2500,1000,2000,1500,5000,2000,1500,3000,1500,1000,1000];
+    var resetLevels = arrCopy(levels);
+    var maxOn = 8;
     var numbertoOn = 1;
     var i = 1;
     var totalSquares = 116;
     var offset = $('#clickspace').offset();
     var squares = [];
     var timeout;
+
+    function arrCopy(original){
+        var arr=[];
+        for(i=0;i<original.length;i++)
+            {arr.push(original[i])};
+        return arr}
 
     $( window ).resize(function(){offset = $('#clickspace').offset();})
 
@@ -102,7 +109,7 @@ function handleClick(e){
                     $("#score").empty().append(turnedOff);
                     //console.log(numberOn);
                 } else {
-                    turnedOff--;
+                    turnedOff-=3;
                     $("#score").empty().append(turnedOff);
                     hitSquare.addClass("on");
                     numberOn++;
@@ -129,9 +136,9 @@ function handleClick(e){
         i=0;
         if (typeof howmany !=='number'){howmany=0;}
         while(i<howmany&& $('.on').length<totalSquares){
-            var whichone = Math.floor((Math.random() * totalSquares) + 1);
-            if( $("#" + whichone).hasClass("on") ){} else{
-                $("#" + whichone).addClass('on');
+            var whichone = Math.floor((Math.random() * totalSquares) );
+            if( squares[whichone].ref.hasClass("on") ){} else{
+                squares[whichone].ref.addClass('on');
                 numberOn++;
                 i++;
             }
@@ -143,11 +150,15 @@ function handleClick(e){
 
     function runscript(){
         turnon( Math.floor(numbertoOn) );
-        if(numbertoOn < 11){ numbertoOn += 0.55;}
+        if(numbertoOn < maxOn){ numbertoOn += 0.55;}
         //console.log(numberOn);
         if( numberOn < totalSquares-8 ){
             //console.log("bing");
             if (level < levels.length - 1){level++;}
+            else{
+                level=0;
+                if (levels.length > 1) { levels.shift();}
+            }
             period = levels[level];
             console.log(level,period)
             timeout = setTimeout(runscript,period);
@@ -163,16 +174,50 @@ function handleClick(e){
         $('#clickspace').unbind('click',handleClick);
         $('#clickspace').unbind('touchstart',handleTouch);
 
-        $("#start").click(startgame);
+        postGame()
 
+
+
+        
+    }
+    
+
+    function postGame(){
+        //alert('end');
+        
+        endAnimation(10,endScreen)
+        //endScreen();
+    }
+
+    function endAnimation(iterations,callback){
+
+        var iterationCounter=0;
+           
+        var animate = setInterval(frame,250);
+        function frame(){ 
+            
+            $('.square').css('visibility', iterationCounter%2===1 ? 'visible' :'hidden');
+                iterationCounter++; 
+            if (iterationCounter >= iterations){
+                clearInterval(animate);
+                endScreen();
+            }
+        }
+    }
+
+
+
+    function endScreen(){
         $("#gameover").show();
         calcprogres(117);
         $("#yourscore").empty().append("Your score: " + turnedOff);
         $("#yourscore2").empty().append(turnedOff);
+        $("#start").click(startgame);
     }
-    
+
     function startgame() { 
 	    	level = 0;
+            levels = arrCopy(resetLevels);
             numberOn = 0;
             turnedOff = 0;
             period = 3000;
