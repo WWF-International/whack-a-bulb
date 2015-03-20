@@ -36,6 +36,7 @@ $(document).ready(function() {
             var squareProperties = $(this).position();
             squareProperties.ref = $(this);
             squareProperties.width = squareProperties.ref.width();
+            squareProperties.isOn = false;
             arrayOfSquares.push(squareProperties);
         })
 
@@ -96,7 +97,7 @@ $(document).ready(function() {
         counter++;
         }
 
-        return arrayOfSquares[i].ref
+        return {squareObject:arrayOfSquares[i],index:i}
 
     }
     
@@ -105,8 +106,9 @@ $(document).ready(function() {
 function handleClick(e){
         if (gameOn === 0) {return false}
         var hitSquare = getHitSquare(squares,offset,e);
-        if( hitSquare.hasClass("on") ){
-                    hitSquare.removeClass("on");
+        if( hitSquare.squareObject.isOn){
+                    hitSquare.squareObject.ref.removeClass("on");
+                    squares[hitSquare.index].isOn = false;
                     numberOn--;
                     turnedOff++;
                     $("#score").empty().append(turnedOff);
@@ -114,7 +116,8 @@ function handleClick(e){
                 } else {
                     turnedOff-=3;
                     $("#score").empty().append(turnedOff);
-                    hitSquare.addClass("on");
+                    hitSquare.squareObject.ref.addClass("on");
+                    squares[hitSquare.index].isOn = true;
                     numberOn++;
                 }
                 calcprogres(numberOn);
@@ -140,8 +143,9 @@ function handleClick(e){
         if (typeof howmany !=='number'){howmany=0;}
         while(i<howmany&& $('.on').length<totalSquares){
             var whichone = Math.floor((Math.random() * totalSquares) );
-            if( squares[whichone].ref.hasClass("on") ){} else{
+            if( squares[whichone].isOn === false) {
                 squares[whichone].ref.addClass('on');
+                squares[whichone].isOn = true;
                 numberOn++;
                 i++;
             }
