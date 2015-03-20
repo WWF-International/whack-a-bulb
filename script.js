@@ -17,6 +17,9 @@ $(document).ready(function() {
     var offset = $('#clickspace').offset();
     var squares = [];
     var timeout;
+    var twitterMsg="I've turned off {{SCORE}} lights for #EarthHourUK. How many can you turn off?";
+    var linkUrl="http://wwf.org.uk/earthhour-smack";
+    var originalUrl = window.top.location.href;
 
     function arrCopy(original){
         var arr=[];
@@ -213,6 +216,12 @@ function handleClick(e){
         $("#yourscore").empty().append("Your score: " + turnedOff);
         $("#yourscore2").empty().append(turnedOff);
         $("#start").click(startgame);
+        $("#twitter-button").attr('href','https://twitter.com/intent/tweet?url=' +  encodeURIComponent(linkUrl) + 
+                                     '&text=' + encodeAndSubstitute(twitterMsg,turnedOff) + 
+                                     '&original_referer=' + encodeURIComponent(originalUrl) + 
+                                     '&via=wwf_uk');
+        $('#facebook-button').attr('href','https://www.facebook.com/sharer/sharer.php?u=' + linkUrl);
+
     }
 
     function startgame() { 
@@ -246,6 +255,12 @@ function handleClick(e){
         
     }
     
+    function encodeAndSubstitute(msg,score){
+        msg = msg.replace('{{SCORE}}',score)
+        msg = encodeURIComponent(msg)
+        return msg
+    }
+
     function calcprogres(no){
         var rounded = Math.floor( (no/totalSquares)*100);
         //console.log(rounded);
