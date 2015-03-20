@@ -102,7 +102,7 @@ function handleClick(e){
                     $("#score").empty().append(turnedOff);
                     //console.log(numberOn);
                 } else {
-                    turnedOff-=3;
+                    turnedOff--;
                     $("#score").empty().append(turnedOff);
                     hitSquare.addClass("on");
                     numberOn++;
@@ -123,7 +123,7 @@ function handleClick(e){
 
       }
     
-    $("#start").click(function(){ startgame(); });
+    $("#start").click(startgame);
 	
     function turnon(howmany){
         i=0;
@@ -160,8 +160,10 @@ function handleClick(e){
         clearTimeout(timeout);
         gameOn = 0;
 
-            $('#clickspace').unbind('click',handleClick);
-            $('#clickspace').unbind('touchstart',handleTouch);
+        $('#clickspace').unbind('click',handleClick);
+        $('#clickspace').unbind('touchstart',handleTouch);
+
+        $("#start").click(startgame);
 
         $("#gameover").show();
         calcprogres(117);
@@ -170,18 +172,23 @@ function handleClick(e){
     }
     
     function startgame() { 
-	    	$("#instructions").hide();
-            gameOn = 1;
-            $('#clickspace').click(handleClick);
-            $('#clickspace').bind('touchstart',handleTouch);
-
-            $("#gameover").hide();
-            level = 0;
+	    	level = 0;
             numberOn = 0;
             turnedOff = 0;
             period = 3000;
             numbertoOn = 1;
             i=1;
+            gameOn = 1;
+
+            $("#instructions").hide();
+            $("#start").unbind('click',startgame);
+
+            $("#score").empty().append(turnedOff);
+            $('#clickspace').click(handleClick);
+            $('#clickspace').bind('touchstart',handleTouch);
+
+            $("#gameover").hide();
+
         
             calcprogres(0);
             $(".square").each(function(){
