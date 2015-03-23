@@ -24,10 +24,10 @@ $(document).ready(function() {
     function arrCopy(original){
         var arr=[];
         for(i=0;i<original.length;i++)
-            {arr.push(original[i])};
-        return arr}
+            {arr.push(original[i]);}
+        return arr;}
 
-    $( window ).resize(function(){offset = $('#clickspace').offset();})
+    $( window ).resize(function(){offset = $('#clickspace').offset();});
 
     function getSquares(squareClass){
         var arrayOfSquares=[];
@@ -38,12 +38,12 @@ $(document).ready(function() {
             squareProperties.width = squareProperties.ref.width();
             squareProperties.isOn = false;
             arrayOfSquares.push(squareProperties);
-        })
+        });
 
-        return arrayOfSquares
+        return arrayOfSquares;
     }
 
-    squares = getSquares('square');
+
 
     function getHitSquare(arrayOfSquares,offset,clickEvent){
         //this is a binary search. I have been waiting since A levels to implement one of these!
@@ -70,11 +70,11 @@ $(document).ready(function() {
             squareBounds.top = offset.top + square.top;
             squareBounds.bottom = squareBounds.top + square.width;
 
-            if (eventCoordinates.y < squareBounds.top){return 'tooLow'};
-            if (eventCoordinates.y > squareBounds.bottom){return 'tooHigh'};
+            if (eventCoordinates.y < squareBounds.top){return 'tooLow';}
+            if (eventCoordinates.y > squareBounds.bottom){return 'tooHigh';}
 
-            if (eventCoordinates.x < squareBounds.left){return 'tooLow'};
-            if (eventCoordinates.x > squareBounds.right){return 'tooHigh'};
+            if (eventCoordinates.x < squareBounds.left){return 'tooLow';}
+            if (eventCoordinates.x > squareBounds.right){return 'tooHigh';}
 
             return 'hit';
 
@@ -97,14 +97,14 @@ $(document).ready(function() {
         counter++;
         }
 
-        return {squareObject:arrayOfSquares[i],index:i}
+        return {squareObject:arrayOfSquares[i],index:i};
 
     }
     
 
 
 function handleClick(e){
-        if (gameOn === 0) {return false}
+        if (gameOn === 0) {return false;}
         var hitSquare = getHitSquare(squares,offset,e);
         if( hitSquare.squareObject.isOn){
                     hitSquare.squareObject.ref.removeClass("on");
@@ -112,7 +112,6 @@ function handleClick(e){
                     numberOn--;
                     turnedOff++;
                     $("#score").empty().append(turnedOff);
-                    //console.log(numberOn);
                 } else {
                     turnedOff-=3;
                     $("#score").empty().append(turnedOff);
@@ -129,7 +128,6 @@ function handleClick(e){
 
       function handleTouch(touchEvent){
         var touch;
-        console.log(touchEvent);
         touchEvent.preventDefault();
         touch=touchEvent.originalEvent.changedTouches[0];
         handleClick(touch);
@@ -158,16 +156,14 @@ function handleClick(e){
     function runscript(){
         turnon( Math.floor(numbertoOn) );
         if(numbertoOn < maxOn){ numbertoOn += 0.55;}
-        //console.log(numberOn);
         if( numberOn < totalSquares-8 ){
-            //console.log("bing");
+
             if (level < levels.length - 1){level++;}
             else{
                 level=0;
                 if (levels.length > 1) { levels.shift();}
             }
             period = levels[level];
-            console.log(level,period)
             timeout = setTimeout(runscript,period);
         } else {
             finishgame();
@@ -181,7 +177,7 @@ function handleClick(e){
         $('#clickspace').unbind('click',handleClick);
         $('#clickspace').unbind('touchstart',handleTouch);
 
-        postGame()
+        postGame();
 
 
 
@@ -192,7 +188,7 @@ function handleClick(e){
     function postGame(){
         //alert('end');
         
-        endAnimation(10,endScreen)
+        endAnimation(10,endScreen);
         //endScreen();
     }
 
@@ -200,14 +196,15 @@ function handleClick(e){
 
         var iterationCounter=0;
            
-        var animate = setInterval(frame,250);
-        function frame(){ 
+        var animate = setInterval(function(){frame(callback);},250);
+        function frame(callback){ 
             
             $('.square').css('visibility', iterationCounter%2===1 ? 'visible' :'hidden');
                 iterationCounter++; 
             if (iterationCounter >= iterations){
                 clearInterval(animate);
-                endScreen();
+                callback();
+                
             }
         }
     }
@@ -229,7 +226,8 @@ function handleClick(e){
     }
 
     function startgame() { 
-	    	level = 0;
+	    	squares = getSquares('square');
+            level = 0;
             levels = arrCopy(resetLevels);
             numberOn = 0;
             turnedOff = 0;
@@ -260,14 +258,13 @@ function handleClick(e){
     }
     
     function encodeAndSubstitute(msg,score){
-        msg = msg.replace('{{SCORE}}',score)
-        msg = encodeURIComponent(msg)
-        return msg
+        msg = msg.replace('{{SCORE}}',score);
+        msg = encodeURIComponent(msg);
+        return msg;
     }
 
     function calcprogres(no){
         var rounded = Math.floor( (no/totalSquares)*100);
-        //console.log(rounded);
         $("#progressbar").width(rounded+"%");
     }
 
