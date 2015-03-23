@@ -18,7 +18,7 @@ $(document).ready(function() {
     var squares = [];
     var timeout;
     var twitterMsg="I've turned off {{SCORE}} lights for #EarthHourUK. How many can you turn off?";
-    var linkUrl="http://wwf.org.uk/earthhour-smack";
+    var linkUrl = window.top.location.href;
     var originalUrl = window.top.location.href;
 
     function arrCopy(original){
