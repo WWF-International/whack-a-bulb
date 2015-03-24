@@ -17,7 +17,7 @@ $(document).ready(function() {
     var offset = $('#clickspace').offset();
     var squares = [];
     var timeout;
-    var twitterMsg="I've turned off {{SCORE}} lights for #EarthHourUK. How many can you turn off?";
+    var twitterMsg="I scored {{SCORE}} playing smack-a-bulb on #EarthHourUK's website. Can you beat my score?";
     var linkUrl = window.top.location.href;
     var originalUrl = window.top.location.href;
 
