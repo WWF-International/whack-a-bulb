@@ -18,8 +18,8 @@ $(document).ready(function() {
     var squares = [];
     var timeout;
     var twitterMsg="I've turned off {{SCORE}} lights for #EarthHourUK. How many can you turn off?";
-    var linkUrl = window.top.location.href;
-    var originalUrl = window.top.location.href;
+    var linkUrl = getLinkUrl();
+    var originalUrl = linkUrl;
 
     function arrCopy(original){
         var arr=[];
@@ -268,6 +268,15 @@ function handleClick(e){
         $("#progressbar").width(rounded+"%");
     }
 
+    function getLinkUrl(){
+        var querystring = window.location.search.substr(1);
+        var match = querystring.match(/linkURL=(.*?)($|&)/);
+        var linkURL = '';
+        if (match && match.length > 1){linkURL = match[1];
+            return linkURL;
+        }
+
+    }
 })(jQuery); 
 
 });
