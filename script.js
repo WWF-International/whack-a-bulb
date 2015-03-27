@@ -273,7 +273,7 @@ function handleClick(e){
         var match = querystring.match(/linkURL=(.*?)($|&)/);
         var linkURL = '';
         if (match && match.length > 1){linkURL = match[1];
-            return linkURL;
+            return decodeURIComponent(linkURL);
         }
 
     }
